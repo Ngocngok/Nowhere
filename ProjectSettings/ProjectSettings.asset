@@ -803,6 +803,7 @@ PlayerSettings:
   vrEditorSettings: {}
   cloudServicesEnabled:
     UNet: 1
+    Unity Ads: 0
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -816,11 +817,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: 
+  cloudProjectId: 26aee91c-6f41-4578-8398-efdd559da27f
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: Nowhere
+  organizationId: longnt_unity629
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
