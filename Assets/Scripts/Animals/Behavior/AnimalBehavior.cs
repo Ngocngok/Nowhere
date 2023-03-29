@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(EventHandler))]
 public class AnimalBehavior : MonoBehaviour
 {
     [SerializeField] private EventHandler eventHandler;
@@ -18,6 +19,7 @@ public class AnimalBehavior : MonoBehaviour
 
     private void Update()
     {
+
     }
 
 }
