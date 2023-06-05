@@ -124,6 +124,7 @@ namespace DG.Tweening
             return tweener;
         }
 
+        [System.Obsolete]
         public static TweenerCore<float, float, FloatOptions> DOInfoRendererScale(this Outliner target, float endValue, float duration, bool snapping = false)
         {
             var tweener = DOTween.To(() => target.InfoRendererScale, x => target.InfoRendererScale = x, endValue, duration);

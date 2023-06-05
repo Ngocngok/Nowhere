@@ -17,7 +17,7 @@ public class Movement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        ConfigManager.Instance.a = 1;
     }
 
     RaycastHit[] groundHit = new RaycastHit[1];
