@@ -16,23 +16,9 @@ namespace Nowhere.Item
     [CreateAssetMenu(fileName = "ItemConfigGroup", menuName = "Config/Item/ConfigGroup")]
     public class ItemConfigGroup : ScriptableObject
     {
-        [TabGroup("Main", "Collection")]
-        [TabGroup("Main/Collection/Sub", "All")]
+        [TabGroup("Group1", "Item Configs")]
         [TableList]
         public ItemConfig[] itemConfigs;
-
-        [Serializable] public struct ItemWithQuantities
-        {
-            public ItemConfig item;
-            public int quantity;
-        }
-
-        [TabGroup("Main1", "Collection")]
-        [TabGroup("Main1/Collection/Sub", "All")]
-        [TableList]
-        public ItemWithQuantities[] itemTradeRate;
-
-
 
         private Dictionary<SerializableGuid, ItemConfig> _itemConfigLookup;
 

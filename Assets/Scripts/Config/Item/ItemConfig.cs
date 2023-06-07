@@ -13,8 +13,12 @@ namespace Nowhere.Item
         public SerializableGuid ID => id;
 
         [HideInTables]
-        [AssetSelector(Paths = "Assets/Prefabs/Items")]
+        [AssetSelector(Paths = "Assets/Prefabs/Items/Items")]
         public Item itemPrefab;
+
+        [HideInTables]
+        [AssetSelector(Paths = "Assets/Prefabs/Items/ItemPickups")]
+        public ItemPickup itemVisualPrefab;
 
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using EPOOutline;
 using UnityEditor;
 using DG.Tweening;
+using Nowhere.Item;
 
 [RequireComponent(typeof(Outlinable))]
 public class Highlighter : MonoBehaviour
@@ -12,7 +13,17 @@ public class Highlighter : MonoBehaviour
 
     [SerializeField] private float interval = 1;
 
-    Tween dialateTween;
+    private ComponentRepository componentRepository;
+    private PlayerDetection playerDetection;
+    private Tween dialateTween;
+
+    private void Awake()
+    {
+        componentRepository = GetComponentInParent<ComponentRepository>();
+        playerDetection = componentRepository.GetCachedComponent<PlayerDetection>();
+        Debug.Log(componentRepository.GetCachedComponent<Item>());
+        StopHighlight();
+    }
 
     public void StartHighlight()
     {
@@ -35,14 +46,14 @@ public class Highlighter : MonoBehaviour
         outlinable.enabled = false;
     }
 
-    private void Awake()
-    {
-        StopHighlight();
-    }
-
     private void Reset()
     {
         outlinable = GetComponent<Outlinable>();
+    }
+
+    private void OnEnable()
+    {
+        
     }
 
     private void OnDisable()
