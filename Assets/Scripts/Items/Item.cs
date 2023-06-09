@@ -8,6 +8,7 @@ namespace Nowhere.Item
     {
         [Title("Config")]
         [SerializeField] private ItemConfig itemConfig;
+        public ItemConfig ItemConfig => itemConfig;
 
         private bool isInited = false;
 

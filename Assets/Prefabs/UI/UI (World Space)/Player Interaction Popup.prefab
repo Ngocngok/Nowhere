@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 1756441421222799024}
   - component: {fileID: 2128039930288629218}
   - component: {fileID: 8694741915707305119}
+  - component: {fileID: 4667185668741784457}
   m_Layer: 0
-  m_Name: Floating Button Group
+  m_Name: Player Interaction Popup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,6 +93,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 022c5666bfa3c5d4980d3bebbb7a7d84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4667185668741784457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3821598486104797534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a241515e730a3439d3326d900b90e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6000127094246258684
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,7 +173,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 789daf59ae2a04a998499c49e940e31b, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

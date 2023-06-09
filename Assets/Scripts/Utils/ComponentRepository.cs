@@ -6,7 +6,7 @@ public class ComponentRepository : MonoBehaviour
 {
     private readonly List<Component> cachedComponents = new List<Component>();
 
-    public T GetCachedComponent<T>() where T : Component
+    public T GetCachedComponent<T>()
     {
         foreach (Component cachedComponent in cachedComponents)
         {
@@ -16,13 +16,55 @@ public class ComponentRepository : MonoBehaviour
             }
         }
 
-        Component component = GetComponentInChildren<T>();
+        T component = GetComponentInChildren<T>();
         if (component != null)
         {
-            cachedComponents.Add(component);
-            return (T)component;
+            cachedComponents.Add(component as Component);
+            return component;
         }
 
         return default(T);
+    }
+
+    public bool TryGetCachedComponent<T>(out T component)
+    {
+        foreach (Component cachedComponent in cachedComponents)
+        {
+            if (cachedComponent is T t)
+            {
+                component = t;
+                return true;
+            }
+        }
+
+        component = GetComponentInChildren<T>();
+        if (component != null)
+        {
+            cachedComponents.Add(component as Component);
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool TryGetCachedComponents<T>(out T[] component)
+    {
+        //foreach (Component cachedComponent in cachedComponents)
+        //{
+        //    if (cachedComponent is T t)
+        //    {
+        //        component = (T)cachedComponent;
+        //        return true;
+        //    }
+        //}
+
+        component = GetComponentsInChildren<T>();
+        if (component.Length > 0)
+        {
+            //cachedComponents.Add(component);
+            return true;
+        }
+
+        return false;
     }
 }

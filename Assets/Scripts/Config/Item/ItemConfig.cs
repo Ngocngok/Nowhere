@@ -1,9 +1,8 @@
+using Sirenix.OdinInspector;
+using UnityEngine;
+
 namespace Nowhere.Item
 {
-
-    using Sirenix.OdinInspector;
-
-    using UnityEngine;
 
     [CreateAssetMenu(fileName = "ItemConfig", menuName = "Config/Item/Config")]
     public class ItemConfig : ScriptableObject

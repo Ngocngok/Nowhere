@@ -5,59 +5,64 @@ using EPOOutline;
 using UnityEditor;
 using DG.Tweening;
 using Nowhere.Item;
+using UniRx;
+using Nowhere.Interaction;
 
 [RequireComponent(typeof(Outlinable))]
 public class Highlighter : MonoBehaviour
 {
-    [SerializeField] private Outlinable outlinable;
+    [SerializeField] private float _interval = 1;
 
-    [SerializeField] private float interval = 1;
+    private ComponentRepository _componentRepository;
+    private CharacterDetection _playerDetection;
+    private Outlinable _outlinable;
+    private Tween _dialateTween;
 
-    private ComponentRepository componentRepository;
-    private PlayerDetection playerDetection;
-    private Tween dialateTween;
+    private readonly CompositeDisposable _characterDetectionObservable = new();
 
     private void Awake()
     {
-        componentRepository = GetComponentInParent<ComponentRepository>();
-        playerDetection = componentRepository.GetCachedComponent<PlayerDetection>();
-        Debug.Log(componentRepository.GetCachedComponent<Item>());
+        _componentRepository = GetComponentInParent<ComponentRepository>();
+        _outlinable = _componentRepository.GetCachedComponent<Outlinable>();
+        _playerDetection = _componentRepository.GetCachedComponent<CharacterDetection>();
         StopHighlight();
     }
 
     public void StartHighlight()
     {
         Debug.Log("a");
-        outlinable.enabled = true;
-        outlinable.OutlineParameters.DilateShift = 0;
-        dialateTween = outlinable.OutlineParameters.DODilateShift(1, interval)
+        _outlinable.enabled = true;
+        _outlinable.OutlineParameters.DilateShift = 0;
+        _dialateTween = _outlinable.OutlineParameters.DODilateShift(1, _interval)
             .SetLoops(-1, LoopType.Yoyo);
     }
 
     public void StopHighlight()
     {
         Debug.Log("b");
-        if (dialateTween.IsActive())
+        if (_dialateTween.IsActive())
         {
-            dialateTween.Kill();
-            dialateTween = null; 
+            _dialateTween.Kill();
+            _dialateTween = null; 
         }
-        outlinable.OutlineParameters.DilateShift = 0;
-        outlinable.enabled = false;
+        _outlinable.OutlineParameters.DilateShift = 0;
+        _outlinable.enabled = false;
     }
 
     private void Reset()
     {
-        outlinable = GetComponent<Outlinable>();
+        _outlinable = GetComponent<Outlinable>();
     }
 
     private void OnEnable()
     {
-        
+        _playerDetection.OnCharacterEnterObservable.Subscribe(_ => StartHighlight()).AddTo(_characterDetectionObservable);
+        _playerDetection.OnCharacterExitObservable.Subscribe(_ => StopHighlight()).AddTo(_characterDetectionObservable);
     }
 
     private void OnDisable()
     {
         StopHighlight();
+        _characterDetectionObservable.Clear();
     }
 }

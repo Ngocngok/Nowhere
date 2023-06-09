@@ -3,14 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(EventHandler))]
-public class AnimalBehavior : MonoBehaviour
+public class CharacterBehavior : MonoBehaviour
 {
     [SerializeField] private EventHandler eventHandler;
-    
-    
-    EventType<int> anEvent = new EventType<int>();
-
-    EventType<int, int> anotherEvent = new EventType<int, int>();
 
     private void Awake()
     {
