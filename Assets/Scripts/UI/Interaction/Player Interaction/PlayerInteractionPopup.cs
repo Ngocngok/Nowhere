@@ -1,11 +1,8 @@
 using Nowhere.Interaction;
 using Sirenix.OdinInspector;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
-using static PlayerInteractionButtonLayout;
 
 public class PlayerInteractionPopup : MonoBehaviour
 {
@@ -13,17 +10,15 @@ public class PlayerInteractionPopup : MonoBehaviour
 
     private ComponentRepository _componentRepository;
     private CharacterDetection _characterDetection;
-    private IInteractable[] _playerInteractableList;
     private PlayerBehavior _playerBehavior;
 
-    private readonly List<PlayerInteractionButton> _buttonList = new();
-    public IReadOnlyList<PlayerInteractionButton> ButtonList => _buttonList;
+    private readonly Dictionary<IInteractable, PlayerInteractionButton> _interactionButtonDictionary = new();
+    public IReadOnlyDictionary<IInteractable, PlayerInteractionButton> InteractionButtonDictionary => _interactionButtonDictionary;
 
     private void Awake()
     {
         _componentRepository= GetComponentInParent<ComponentRepository>();
         _characterDetection = _componentRepository.GetComponent<CharacterDetection>();
-        _componentRepository.TryGetCachedComponents(out _playerInteractableList);
     }
 
     private void Start()
@@ -36,11 +31,12 @@ public class PlayerInteractionPopup : MonoBehaviour
 
     private void GenerateButton()
     {
-        foreach (IInteractable playerInteraction in _playerInteractableList)
+        foreach (IInteractable interaction in _componentRepository.GetCachedComponents<IInteractable>())
         {
-            PlayerInteractionButton button = Instantiate(playerInteraction.InteractionConfig.playerInteractionButton, _playerInteractionButtonLayout.transform, true);
+            PlayerInteractionButton button = Instantiate(interaction.InteractionConfig.playerInteractionButton, _playerInteractionButtonLayout.transform, true);
             button.gameObject.SetActive(false);
-            _buttonList.Add(button);
+
+            _interactionButtonDictionary.Add(interaction, button);
         }
     }
 
@@ -56,8 +52,36 @@ public class PlayerInteractionPopup : MonoBehaviour
             _playerBehavior = character as PlayerBehavior;
         }
 
+        IInteracter[] interacters = character.GetComponent<ComponentRepository>().GetCachedComponents<IInteracter>();
 
+        foreach (KeyValuePair<IInteractable, PlayerInteractionButton> interactionButton in _interactionButtonDictionary)
+        {
+            bool foundCompatibleInteracter = false; 
 
+            foreach (IInteracter interacter in interacters)
+            {
+                if (interactionButton.Key.IsCompatibleWithInteracter(interacter))
+                {
+                    interactionButton.Value.Init(true);
+                    interactionButton.Value.ReplaceListener()
+                    foundCompatibleInteracter |= true;
+
+                    break;
+                }
+            }
+
+            if (!foundCompatibleInteracter)
+            {
+                interactionButton.Value.Init(false);
+            }
+        }
+
+        _playerInteractionButtonLayout.Show();
+    }
+
+    private void OnClickInteractionButton(IInteractable interactable)
+    {
+        if()
     }
 
     private void OnPlayerExit(CharacterBehavior character)
@@ -66,6 +90,8 @@ public class PlayerInteractionPopup : MonoBehaviour
         {
             return;
         }
+
+        _playerInteractionButtonLayout.Hide();
     }
 
 

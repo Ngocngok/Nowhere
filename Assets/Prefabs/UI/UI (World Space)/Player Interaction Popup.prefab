@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2128039930288629218}
   - component: {fileID: 8694741915707305119}
   - component: {fileID: 4667185668741784457}
+  - component: {fileID: 9138196266869882756}
   m_Layer: 0
   m_Name: Player Interaction Popup
   m_TagString: Untagged
@@ -105,6 +106,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6a241515e730a3439d3326d900b90e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerInteractionButtonLayout: {fileID: 9138196266869882756}
+--- !u!114 &9138196266869882756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3821598486104797534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4042eae7015160a419bfa9fcc9a1d1e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buttonLayout: 0
 --- !u!1 &6000127094246258684
 GameObject:
   m_ObjectHideFlags: 0

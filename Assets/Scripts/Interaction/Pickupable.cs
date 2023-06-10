@@ -21,6 +21,11 @@ public class Pickupable : MonoBehaviour, IInteractable
         _item = _componentRepository.GetComponent<Item>();
     }
 
+    public bool IsCompatibleWithInteracter(IInteracter interacter)
+    {
+        return interacter is Picker;
+    }
+
     public bool IsInteractable(IInteracter interacter)
     {
         Picker picker = interacter as Picker;

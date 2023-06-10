@@ -25,6 +25,17 @@ public class ComponentRepository : MonoBehaviour
 
         return default(T);
     }
+    public T[] GetCachedComponents<T>()
+    {
+        T[] component = GetComponentsInChildren<T>();
+        if (component.Length > 0)
+        {
+            //cachedComponents.Add(component);
+            return component;
+        }
+
+        return default;
+    }
 
     public bool TryGetCachedComponent<T>(out T component)
     {
