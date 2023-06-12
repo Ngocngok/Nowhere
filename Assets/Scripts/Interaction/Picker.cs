@@ -5,18 +5,35 @@ using UnityEngine;
 
 public class Picker : MonoBehaviour, IInteracter
 {
-    [SerializeField] private Transform[] _holdItemTransform;
+    private ComponentRepository _componentRepository;
+    public ComponentRepository ComponentRepository => _componentRepository;
+
+    [SerializeField] private Transform _rootItemHolder;
+    private Transform[] _holdItemTransform;
+
+    private readonly Stack<ItemConfig> _holdItemInformation = new();
+    private int _itemCount = 0;
+    private readonly int _maxItemCount = 2;
 
     public bool CanPickup => _itemCount < _maxItemCount;
 
-    private readonly Stack<ItemConfig> _holdItemInformation = new();
+    private void Awake()
+    {
+        _holdItemTransform = new Transform[_rootItemHolder.childCount];
+        for (int i = 0; i < _holdItemTransform.Length; i++)
+        {
+            _holdItemTransform[i] = _rootItemHolder.GetChild(i);
+        }
 
-    private int _itemCount = 0;
-    private int _maxItemCount = 1;
+        _componentRepository = GetComponentInParent<ComponentRepository>();
+
+    }
 
     public void AddItem(ItemConfig itemConfig, Transform itemTransform)
     {
         itemTransform.SetParent(_holdItemTransform[_itemCount], true);
+        itemTransform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+        itemTransform.localScale = Vector3.one;
         _holdItemInformation.Push(itemConfig);
 
         _itemCount++;

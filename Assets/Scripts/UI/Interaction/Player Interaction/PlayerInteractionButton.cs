@@ -7,37 +7,55 @@ public class PlayerInteractionButton : MonoBehaviour
 {
     [SerializeField] private Button _activeButton;
     [SerializeField] private Button _inactiveButton;
+    [SerializeField] private CanvasGroup _canvasGroup;
+    [SerializeField] private RectTransform _rectTransform;
+
+    private PlayerInteractionPopup _interactionPopup;
+    private IInteractable _interactable;
+    private IInteracter _interacter;
 
     private bool _isSetup;
 
     public bool ShouldShow { get; private set; } = false;
+    public CanvasGroup CanvasGroup => _canvasGroup;
+    public RectTransform RectTransform => _rectTransform;
 
-    public void Init(bool shouldShow)
+
+    public void Init(bool shouldShow, bool isVisuallyInteractable = true)
     {
-        if(!_isSetup)
+        ShouldShow = shouldShow;
+
+        if (isVisuallyInteractable)
+        {
+            _activeButton.gameObject.SetActive(true);
+            _inactiveButton.gameObject.SetActive(false);
+        }
+        else
+        {
+            _activeButton.gameObject.SetActive(false);
+            _inactiveButton.gameObject.SetActive(true);
+        }
+    }
+
+    public void Setup(PlayerInteractionPopup interactionPopup, IInteractable interactable, IInteracter interacter)
+    {
+        if (!_isSetup)
         {
             _isSetup = true;
 
-            Setup();
+            _interactionPopup = interactionPopup;
+            _interactable = interactable;
+            _interacter = interacter;
         }
 
-        ShouldShow = shouldShow;
+        if (TryGetComponent(out PickupButtonBehavior buttonBehavior))
+        {
+            _activeButton.onClick.AddListener(() => buttonBehavior.OnClick(_interactionPopup, _interactable, _interacter));
+        }
     }
 
-    private void Setup()
+    public void SetLogicallyInteractable(bool isInteractable)
     {
-
-    }
-
-    public void ReplaceListener(Action OnClick)
-    {
-        _activeButton.onClick.RemoveAllListeners();
-        _activeButton.onClick.AddListener(() => OnClick?.Invoke());
-    }
-
-    public void SetInteractable(bool interactable)
-    {
-        _activeButton.gameObject.SetActive(interactable);
-        _inactiveButton.gameObject.SetActive(!interactable);
+        _activeButton.interactable = isInteractable;
     }
 }

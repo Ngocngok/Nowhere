@@ -4,6 +4,9 @@ using Nowhere.Item;
 using Sirenix.OdinInspector;
 using UniRx;
 using UnityEngine;
+using System;
+using UnityEngine.AI;
+using Nowhere.Helper;
 
 public class Pickupable : MonoBehaviour, IInteractable
 {
@@ -32,16 +35,40 @@ public class Pickupable : MonoBehaviour, IInteractable
         return picker.CanPickup;
     }
 
-    public void OnInteract(IInteracter interacter)
+    public void OnInteract(IInteracter interacter, Action onInteractionStart, Action onInteractionDone)
     {
+        onInteractionStart?.Invoke();
         Picker picker = interacter as Picker;
 
-        ItemPickup pickupItem = Instantiate(_item.ItemConfig.itemVisualPrefab, _item.transform.position, _item.transform.rotation);
-        pickupItem.transform.DOJump(picker.GetPickupItemPositon(), 5, 1, .5f).OnComplete(() =>
+        // Get a position for picker to pickup this
+        Vector3 destination = interacter.ComponentRepository.transform.position;
+        float randomDirection = UnityEngine.Random.Range(0f, Mathf.PI);
+        if(NavMesh.SamplePosition(_item.transform.position + new Vector3(Mathf.Cos(randomDirection), 0, Mathf.Sin(randomDirection)), out NavMeshHit hit, 2, NavMesh.AllAreas))
         {
-            picker.AddItem(pickupItem.ItemConfig, pickupItem.transform);
+            destination = hit.position;
+        }
+
+        // Get facing direction
+        Quaternion rotation = Quaternion.FromToRotation(Vector3.forward, _item.transform.position.WithoutY() - destination.WithoutY());
+
+        IMovement pickerMovement = picker.ComponentRepository.GetCachedComponent<IMovement>();
+        pickerMovement.ProcedureMoveTo(destination, rotation, () =>
+        {
+            ItemPickup pickupItem = Instantiate(_item.ItemConfig.itemVisualPrefab, _item.transform.position, _item.transform.rotation);
+
+            pickupItem.transform.DOJump(picker.GetPickupItemPositon(), 1, 1, .7f)
+            .SetEase(Ease.Linear)
+            .OnComplete(() =>
+            {
+                picker.AddItem(pickupItem.ItemConfig, pickupItem.transform);
+                pickerMovement.EndProcedureMove();
+                onInteractionDone?.Invoke();
+            });
+
+
+
+            Destroy(_item.gameObject);
         });
 
-        Destroy(_item.gameObject);
     }
 }

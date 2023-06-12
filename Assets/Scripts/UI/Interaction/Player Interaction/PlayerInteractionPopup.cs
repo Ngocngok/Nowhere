@@ -18,7 +18,7 @@ public class PlayerInteractionPopup : MonoBehaviour
     private void Awake()
     {
         _componentRepository= GetComponentInParent<ComponentRepository>();
-        _characterDetection = _componentRepository.GetComponent<CharacterDetection>();
+        _characterDetection = _componentRepository.GetCachedComponent<CharacterDetection>();
     }
 
     private void Start()
@@ -33,7 +33,7 @@ public class PlayerInteractionPopup : MonoBehaviour
     {
         foreach (IInteractable interaction in _componentRepository.GetCachedComponents<IInteractable>())
         {
-            PlayerInteractionButton button = Instantiate(interaction.InteractionConfig.playerInteractionButton, _playerInteractionButtonLayout.transform, true);
+            PlayerInteractionButton button = Instantiate(interaction.InteractionConfig.playerInteractionButton, _playerInteractionButtonLayout.transform, false);
             button.gameObject.SetActive(false);
 
             _interactionButtonDictionary.Add(interaction, button);
@@ -56,15 +56,16 @@ public class PlayerInteractionPopup : MonoBehaviour
 
         foreach (KeyValuePair<IInteractable, PlayerInteractionButton> interactionButton in _interactionButtonDictionary)
         {
-            bool foundCompatibleInteracter = false; 
+            bool foundCompatibleInteracter = false;
+            IInteractable interactable = interactionButton.Key;
 
             foreach (IInteracter interacter in interacters)
             {
                 if (interactionButton.Key.IsCompatibleWithInteracter(interacter))
                 {
-                    interactionButton.Value.Init(true);
-                    interactionButton.Value.ReplaceListener()
-                    foundCompatibleInteracter |= true;
+                    interactionButton.Value.Setup(this, interactable, interacter);
+                    interactionButton.Value.Init(true, interactable.IsInteractable(interacter));
+                    foundCompatibleInteracter = true;
 
                     break;
                 }
@@ -76,13 +77,10 @@ public class PlayerInteractionPopup : MonoBehaviour
             }
         }
 
-        _playerInteractionButtonLayout.Show();
+        ShowAllActiveButton();
     }
 
-    private void OnClickInteractionButton(IInteractable interactable)
-    {
-        if()
-    }
+
 
     private void OnPlayerExit(CharacterBehavior character)
     {
@@ -91,8 +89,24 @@ public class PlayerInteractionPopup : MonoBehaviour
             return;
         }
 
-        _playerInteractionButtonLayout.Hide();
+        HideAllActiveButton();
     }
 
+    public void ShowAllActiveButton(bool withAnimation = true)
+    {
+        _playerInteractionButtonLayout.Show(withAnimation, () => SetInteractableAllActiveButton(false), () => SetInteractableAllActiveButton(true));
+    }
 
+    public void HideAllActiveButton(bool withAnimation = true)
+    {
+        _playerInteractionButtonLayout.Hide(withAnimation, () => SetInteractableAllActiveButton(false), null);
+    }
+
+    private void SetInteractableAllActiveButton(bool isInteractable)
+    {
+        foreach (KeyValuePair<IInteractable, PlayerInteractionButton> button in _interactionButtonDictionary)
+        {
+            button.Value.SetLogicallyInteractable(isInteractable);
+        }
+    }
 }

@@ -1,8 +1,10 @@
+using Sirenix.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerInputHandler : Singleton<PlayerInputHandler>
 {
@@ -27,14 +29,23 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
     {
         if (Input.GetMouseButtonDown(0))
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
+
             int hits = Physics.RaycastNonAlloc(_mainCamera.ScreenPointToRay(Input.mousePosition), _hits, 100, _targetLayer);
 
             if (hits > 0)
             {
                 //proceed target hit
 
+                for (int i = 0; i < hits; i++)
+                {
+
+                }
+
                 _groundHitAsObservable.OnNext(_hits[0].point);
-                Debug.Log(_hits[0].collider);
             }
         }
     }

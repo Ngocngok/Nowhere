@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemConfigGroup: {fileID: 11400000, guid: 45a94b2a4b80dc449817acf39eb152bb, type: 2}
+  interactionConfigGroup: {fileID: 11400000, guid: f59276117ec3fc14191c4b16b885eaf1, type: 2}

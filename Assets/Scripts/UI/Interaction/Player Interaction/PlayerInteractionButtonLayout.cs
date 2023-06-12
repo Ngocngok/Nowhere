@@ -4,6 +4,8 @@ using UnityEngine;
 using System.Linq;
 using Sirenix.Utilities;
 using Sirenix.OdinInspector;
+using System;
+using DG.Tweening;
 
 public class PlayerInteractionButtonLayout : MonoBehaviour
 {
@@ -17,35 +19,82 @@ public class PlayerInteractionButtonLayout : MonoBehaviour
     [ShowIf("@_buttonLayout == ButtonLayout.Arc")]
     [SerializeField] private float _arcLayoutOffsetY = 1.5f;
 
-    public void Show()
+    [SerializeField] private float _animationDuration = 1f;
+
+    private bool _withAnimation = true;
+
+    public void Show(bool withAnimation, Action onShowAnimationStart, Action onShowAnimationDone)
     {
+        _withAnimation = withAnimation;
+        onShowAnimationStart?.Invoke();
         switch (_buttonLayout)
         {
             case ButtonLayout.Arc:
-                ShowLayoutArc(); 
+                ShowLayoutArc(onShowAnimationDone); 
                 break;
             default: 
                 break;
         }
     }
 
-    public void Hide()
+    public void Hide(bool withAnimation, Action onHideAnimationStart, Action onHideAnimationDone)
     {
-
+        _withAnimation = withAnimation;
+        onHideAnimationStart?.Invoke();
+        switch (_buttonLayout)
+        {
+            case ButtonLayout.Arc:
+                HideLayoutArc(onHideAnimationDone);
+                break;
+            default:
+                break;
+        }
     }
 
-    private void ShowLayoutArc()
+    private void ShowLayoutArc(Action onShowAnimationDone)
     {
         List<PlayerInteractionButton> _buttonList = new();
         _playerInteractionPopup.InteractionButtonDictionary.Where(button => button.Value.ShouldShow).ForEach(button => _buttonList.Add(button.Value));
 
-        float angleOffset = Mathf.PI / 4 - _arcLayoutAngleRadian * (_buttonList.Count - 1) / 2;  
+        float angleOffset = Mathf.PI / 2 - _arcLayoutAngleRadian * (_buttonList.Count - 1) / 2;  
+
+        for (int i = 0; i < _buttonList.Count; i++)
+        {
+            float x = Mathf.Cos(i * _arcLayoutAngleRadian + angleOffset) * _arcLayoutRadius;
+            float y = Mathf.Sin(i * _arcLayoutAngleRadian + angleOffset) * _arcLayoutRadius - _arcLayoutOffsetY;
+
+            _buttonList[i].gameObject.SetActive(true);
+            _buttonList[i].CanvasGroup.alpha = 0;
+            _buttonList[i].RectTransform.anchoredPosition = new Vector2(x, _arcLayoutRadius - _arcLayoutOffsetY);
+
+            _buttonList[i].CanvasGroup.DOFade(1, _animationDuration).SetEase(Ease.InCubic);
+            _buttonList[i].RectTransform.DOAnchorPosX(x, _animationDuration).SetEase(Ease.Linear);
+            _buttonList[i].RectTransform.DOAnchorPosY(y, _animationDuration).SetEase(Ease.Linear);
+
+        }
+
+        // Bla bla
+        DOVirtual.DelayedCall(_animationDuration, () =>
+        {
+            onShowAnimationDone?.Invoke();
+        });
+    }
+
+    private void HideLayoutArc(Action onHideAnimationDone)
+    {
+        List<PlayerInteractionButton> _buttonList = new();
+        _playerInteractionPopup.InteractionButtonDictionary.Where(button => button.Value.ShouldShow).ForEach(button => _buttonList.Add(button.Value));
+
+        float angleOffset = Mathf.PI / 4 - _arcLayoutAngleRadian * (_buttonList.Count - 1) / 2;
 
         for (int i = 0; i < _buttonList.Count; i++)
         {
             float x = Mathf.Cos(i * _arcLayoutAngleRadian + angleOffset) * _arcLayoutRadius;
             float y = Mathf.Sin(i * _arcLayoutAngleRadian + angleOffset) * _arcLayoutRadius - _arcLayoutOffsetY;
         }
+
+        // Bla bla
+        onHideAnimationDone?.Invoke();
     }
 
     private enum ButtonLayout

@@ -9,26 +9,26 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-namespace Nowhere.Interaction
+namespace Nowhere.Item
 {
 
-    [CreateAssetMenu(fileName = "InteractionConfigGroup", menuName = "Config/Interaction/ConfigGroup")]
-    public class InteractionConfigGroup : ScriptableObject
+    [CreateAssetMenu(fileName = "ItemConfigGroup", menuName = "Config/Item/ConfigGroup")]
+    public class ItemConfigGroup : ScriptableObject
     {
-        [TabGroup("Group1", "Interaction Configs")]
+        [TabGroup("Group1", "Item Configs")]
         [TableList]
-        public InteractionConfig[] interactionConfigs;
+        public ItemConfig[] itemConfigs;
 
-        private Dictionary<SerializableGuid, InteractionConfig> _interactionConfigLookup;
+        private Dictionary<SerializableGuid, ItemConfig> _itemConfigLookup;
 
         public void Initialize()
         {
-            _interactionConfigLookup = interactionConfigs.ToDictionary(interaction => interaction.ID);
+            _itemConfigLookup = itemConfigs.ToDictionary(item => item.ID);
         }
 
-        public bool TryFindItemByID(SerializableGuid id, out InteractionConfig interactionConfig)
+        public bool TryFindItemByID(SerializableGuid id, out ItemConfig itemConfig)
         {
-            return _interactionConfigLookup.TryGetValue(id, out interactionConfig);
+            return _itemConfigLookup.TryGetValue(id, out itemConfig);
         }
 
 #if UNITY_EDITOR

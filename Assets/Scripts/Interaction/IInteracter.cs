@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IInteracter
 {
-
+    ComponentRepository ComponentRepository { get; }
 }

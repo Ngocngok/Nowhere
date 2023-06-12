@@ -13,7 +13,7 @@ namespace Nowhere.Interaction
         public SerializableGuid ID => id;
 
         [HideInTables]
-        [AssetSelector(Paths = "Assets/Prefabs/Interactions/Interactions")]
+        [AssetSelector(Paths = "Assets/Prefabs/UI/UI (World Space)")]
         public PlayerInteractionButton playerInteractionButton;
 
 
