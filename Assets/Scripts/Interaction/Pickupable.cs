@@ -43,7 +43,7 @@ public class Pickupable : MonoBehaviour, IInteractable
         // Get a position for picker to pickup this
         Vector3 destination = interacter.ComponentRepository.transform.position;
         float randomDirection = UnityEngine.Random.Range(0f, Mathf.PI);
-        if(NavMesh.SamplePosition(_item.transform.position + new Vector3(Mathf.Cos(randomDirection), 0, Mathf.Sin(randomDirection)), out NavMeshHit hit, 2, NavMesh.AllAreas))
+        if(NavMesh.SamplePosition(_item.transform.position + new Vector3(Mathf.Cos(randomDirection), 0, Mathf.Sin(randomDirection)) * 2, out NavMeshHit hit, 2, NavMesh.AllAreas))
         {
             destination = hit.position;
         }

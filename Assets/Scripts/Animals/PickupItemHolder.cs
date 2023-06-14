@@ -5,28 +5,19 @@ using UnityEngine;
 public class PickupItemHolder : MonoBehaviour
 {
     [SerializeField] private Transform _referenceBone;
+    [SerializeField] private Transform _rootHolder;
+    [SerializeField] private Transform[] _holders;
     
-    private Transform _rootHolder;
-    //private Vector3 _rootHolderInitialPosition;
     private Vector3 _referenceBoneInitialPosition;
     private Quaternion _rootHolderInitialRotation;
     private Quaternion _referenceBoneInitialRotation;
 
-    private Transform[] _holders;
     private Vector3[] _holderInitialPositions;
 
     private void Awake()
     {
-        _rootHolder = transform;
-        //_rootHolderInitialPosition = _rootHolder.localPosition;
         _rootHolderInitialRotation = _rootHolder.localRotation;
         _referenceBoneInitialRotation = _referenceBone.localRotation;
-
-        _holders = new Transform[_rootHolder.childCount];
-        for (int i = 0; i < _holders.Length; i++)
-        {
-            _holders[i] = _rootHolder.GetChild(i);
-        }
 
         _referenceBoneInitialPosition = _referenceBone.localPosition;
 
@@ -57,6 +48,15 @@ public class PickupItemHolder : MonoBehaviour
 
             _holders[i].localPosition = Vector3.Lerp(_holders[i].localPosition, _holderInitialPositions[i] + deltaPosition, .9f);
 
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        for (int i = 0; i < _holders.Length; i++)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(_holders[i].position + Vector3.up * .15f, Vector3.one * .3f);
         }
     }
 }

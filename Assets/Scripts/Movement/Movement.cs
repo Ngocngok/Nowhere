@@ -16,15 +16,13 @@ public class Movement : MonoBehaviour, IMovement
     private bool _canControl = true;
     private bool _isProcedureMoving = false;
     private bool _waitUpdatePath = false;
-    private Action _onMannualMovePlayerTo;
-
-    public Transform apple;
+    private Action _onManualMovePlayerTo;
 
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
         _animator = GetComponentInChildren<Animator>();
-        _onMannualMovePlayerTo = null;
+        _onManualMovePlayerTo = null;
         _agent.speed = speed;
     }
 
@@ -41,10 +39,10 @@ public class Movement : MonoBehaviour, IMovement
             }
 
             //destination reached
-            if(_onMannualMovePlayerTo != null)
+            if(_onManualMovePlayerTo != null)
             {
-                _onMannualMovePlayerTo.Invoke();
-                _onMannualMovePlayerTo = null;
+                _onManualMovePlayerTo.Invoke();
+                _onManualMovePlayerTo = null;
             }
 
         }
@@ -77,7 +75,7 @@ public class Movement : MonoBehaviour, IMovement
         _waitUpdatePath = true;
 
         // mannually move character to exact position and rotation
-        _onMannualMovePlayerTo += () =>
+        _onManualMovePlayerTo += () =>
         {
             //float timeToMove = (destination - _agent.transform.position).WithoutY().magnitude / speed;
             float timeToMove = .5f;

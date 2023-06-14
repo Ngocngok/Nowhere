@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 8521041425241610524}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 6, y: 6, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7659653396257272384}
@@ -95,11 +95,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 469405802421583925, guid: f4aae0779998b374f988a2268c2190a5, type: 3}
       propertyPath: m_Name
-      value: _ItemVisual Variant
+      value: Apple (Visual)
       objectReference: {fileID: 0}
     - target: {fileID: 5646464981927011487, guid: f4aae0779998b374f988a2268c2190a5, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5646464981927011487, guid: f4aae0779998b374f988a2268c2190a5, type: 3}
       propertyPath: m_LocalPosition.x

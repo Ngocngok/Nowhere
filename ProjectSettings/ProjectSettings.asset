@@ -153,7 +153,8 @@ PlayerSettings:
   resetResolutionOnWindowResize: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
-  applicationIdentifier: {}
+  applicationIdentifier:
+    Standalone: com.DefaultCompany.Nowhere
   buildNumber:
     Standalone: 0
     iPhone: 0
@@ -737,7 +738,7 @@ PlayerSettings:
     PS5: EPO_DOTWEEN;EPO_DOTWEEN;EPO_DOTWEEN
     QNX: EPO_DOTWEEN;EPO_DOTWEEN;EPO_DOTWEEN
     Stadia: EPO_DOTWEEN;EPO_DOTWEEN;EPO_DOTWEEN
-    Standalone: EPO_DOTWEEN;ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1
+    Standalone: EPO_DOTWEEN;ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;MOREMOUNTAINS_NICEVIBRATIONS_INSTALLED
     WebGL: EPO_DOTWEEN;EPO_DOTWEEN;EPO_DOTWEEN
     Windows Store Apps: EPO_DOTWEEN;EPO_DOTWEEN;EPO_DOTWEEN
     XboxOne: EPO_DOTWEEN;EPO_DOTWEEN;EPO_DOTWEEN

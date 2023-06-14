@@ -121,6 +121,6 @@ MonoBehaviour:
   _playerInteractionPopup: {fileID: 4667185668741784457}
   _buttonLayout: 3
   _arcLayoutAngleRadian: 0.5235988
-  _arcLayoutRadius: 2
-  _arcLayoutOffsetY: 1.5
+  _arcLayoutRadius: 4
+  _arcLayoutOffsetY: 2
   _animationDuration: 0.7
