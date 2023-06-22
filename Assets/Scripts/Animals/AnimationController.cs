@@ -28,6 +28,8 @@ namespace Animal
 		private static readonly int walkHash = Animator.StringToHash("Walk");
 		#endregion
 
+
+
 		[SerializeField] private Animator _animator;
 
 	}
