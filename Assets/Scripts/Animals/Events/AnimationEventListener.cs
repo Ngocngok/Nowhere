@@ -5,10 +5,27 @@ using UnityEngine;
 
 public class AnimationEventListener : MonoBehaviour
 {
-    [AnimationEventCallback]
-    public void InvokeEvent(string name)
+    private readonly Dictionary<string, EventType> _animationEventDictionary = new();
+    private ComponentRepository _componentRepository;
+    private EventHandler _eventHandler;
+
+    public static readonly EventType onCharacterEat = new();
+
+    private void Awake()
     {
-        Debug.Log(name);
+        _componentRepository = GetComponentInParent<ComponentRepository>();
+        _eventHandler = _componentRepository.GetComponent<EventHandler>();
+        
+
+        _animationEventDictionary.Add("OnCharacterEat", onCharacterEat);
+
+    }
+
+
+    [AnimationEventCallback]
+    private void InvokeEvent(AnimationEvent animation)
+    {
+
     }
 
 
