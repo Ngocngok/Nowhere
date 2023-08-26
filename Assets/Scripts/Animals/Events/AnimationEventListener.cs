@@ -1,16 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class AnimationEventListener : MonoBehaviour
 {
     private readonly Dictionary<string, EventType> _animationEventDictionary = new();
     private ComponentRepository _componentRepository;
+    [SerializeField] private int a;
     private EventHandler _eventHandler;
-
     public static readonly EventType onCharacterEat = new();
-
+    
     private void Awake()
     {
         _componentRepository = GetComponentInParent<ComponentRepository>();
@@ -23,7 +24,7 @@ public class AnimationEventListener : MonoBehaviour
 
 
     [AnimationEventCallback]
-    private void InvokeEvent(AnimationEvent animation)
+    private void InvokeEvent()
     {
 
     }

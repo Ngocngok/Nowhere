@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class testscript : MonoBehaviour
 {
-    public GameObject cube;
+
+    [SerializeField]
+    private GameObject cube;
 
     private void Awake()
     {
@@ -15,6 +17,7 @@ public class testscript : MonoBehaviour
                 for (int k = 0; k < 1; k++)
                 {
                     Instantiate(cube, new Vector3(i, j, k), Quaternion.identity);
+                    Destroy(cube.transform);
                 }
             }
         }
