@@ -4,10 +4,17 @@ using UniRx;
 using System;
 using DG.Tweening;
 using Nowhere.Helper;
+using Nowhere.Utility;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.EventSystems;
+using Unity.VisualScripting;
 
 public class Movement : MonoBehaviour, IMovement
 {
-    [SerializeField] private float speed = 2.5f;
+    [SerializeField] private float speed = 3f;
+    [SerializeField] private float goStraightAcceleration = 6f;
+    [SerializeField] private float turnAroundAcceleration = 12f;
 
     private NavMeshAgent _agent;
     private Animator _animator;
@@ -17,6 +24,9 @@ public class Movement : MonoBehaviour, IMovement
     private bool _isProcedureMoving = false;
     private bool _waitUpdatePath = false;
     private Action _onManualMovePlayerTo;
+
+    RayCastHitComparer _rayCastHitComparer = new();
+    private RaycastHit[] _groundDetectionHits = new RaycastHit[5];
 
     private void Awake()
     {
@@ -29,6 +39,7 @@ public class Movement : MonoBehaviour, IMovement
     // Update is called once per frame
     void Update()
     {
+        MatchMovementAnimationWithTerrain();
 
         if (_isProcedureMoving && _agent.remainingDistance < .15f)
         {
@@ -47,7 +58,41 @@ public class Movement : MonoBehaviour, IMovement
 
         }
 
+        if (Vector3.Angle(transform.forward.WithoutY(), (_agent.destination - transform.position).WithoutY()) > 10)
+        {
+            _agent.acceleration = turnAroundAcceleration;
+        }
+        else
+        {
+            _agent.acceleration = goStraightAcceleration;
+        }
+
         _animator.SetFloat(AnimationHash.speedHash, _agent.velocity.magnitude / _agent.speed);
+    }
+
+    private void MatchMovementAnimationWithTerrain()
+    {
+        Ray groundCheckRay = new Ray(transform.position, -transform.up * 5);
+
+        int hits = Physics.RaycastNonAlloc(groundCheckRay, _groundDetectionHits, 5, LayerMask.GetMask("Ground"));
+        if(hits > 0)
+        {
+            Array.Sort(_groundDetectionHits, 0, hits, _rayCastHitComparer);
+            if(_groundDetectionHits[0].collider.TryGetComponent(out Terrain terrain))
+            {
+                switch (terrain.TerrainType)
+                {
+                    case TerrainType.Land:
+                        _animator.SetInteger(AnimationHash.runTypeHash, 0);
+                        break;
+                    case TerrainType.Water:
+                        _animator.SetInteger(AnimationHash.runTypeHash, 1);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
     }
 
     private void MoveToPlayerInput(Vector3 destination)
@@ -106,4 +151,13 @@ public class Movement : MonoBehaviour, IMovement
     {
         _groundHitSubscription.Dispose();
     }
+
+    private class RayCastHitComparer : IComparer<RaycastHit>
+    {
+        public int Compare(RaycastHit x, RaycastHit y)
+        {
+            return x.distance > y.distance ? 1 : 0;
+        }
+    }
 }
+

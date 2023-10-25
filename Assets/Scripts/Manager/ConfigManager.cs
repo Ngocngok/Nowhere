@@ -6,6 +6,6 @@ using UnityEngine;
 
 public class ConfigManager : Singleton<ConfigManager>
 {
-    public ItemConfigGroup itemConfigGroup;
+    public EntityConfigGroup itemConfigGroup;
     public InteractionConfigGroup interactionConfigGroup;
 }

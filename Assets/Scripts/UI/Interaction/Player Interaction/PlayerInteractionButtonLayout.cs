@@ -65,7 +65,7 @@ public class PlayerInteractionButtonLayout : MonoBehaviour
 
             _buttonList[i].gameObject.SetActive(true);
             _buttonList[i].CanvasGroup.alpha = 0;
-            _buttonList[i].RectTransform.anchoredPosition = new Vector2(x, _arcLayoutRadius - _arcLayoutOffsetY);
+            _buttonList[i].RectTransform.anchoredPosition = new Vector2(0, _arcLayoutRadius - _arcLayoutOffsetY);
 
             _buttonList[i].CanvasGroup.DOFade(1, _animationDuration).SetEase(Ease.InCubic);
             _buttonList[i].RectTransform.DOAnchorPosX(x, _animationDuration).SetEase(Ease.Linear);
@@ -85,12 +85,17 @@ public class PlayerInteractionButtonLayout : MonoBehaviour
         List<PlayerInteractionButton> _buttonList = new();
         _playerInteractionPopup.InteractionButtonDictionary.Where(button => button.Value.ShouldShow).ForEach(button => _buttonList.Add(button.Value));
 
-        float angleOffset = Mathf.PI / 4 - _arcLayoutAngleRadian * (_buttonList.Count - 1) / 2;
+        //float angleOffset = Mathf.PI / 4 - _arcLayoutAngleRadian * (_buttonList.Count - 1) / 2;
+
+        float x = 0;
+        float y = _arcLayoutRadius - _arcLayoutOffsetY;
 
         for (int i = 0; i < _buttonList.Count; i++)
         {
-            float x = Mathf.Cos(i * _arcLayoutAngleRadian + angleOffset) * _arcLayoutRadius;
-            float y = Mathf.Sin(i * _arcLayoutAngleRadian + angleOffset) * _arcLayoutRadius - _arcLayoutOffsetY;
+            int capturedIndex = i;
+            _buttonList[i].RectTransform.DOAnchorPosX(x, _animationDuration).SetEase(Ease.Linear);
+            _buttonList[i].RectTransform.DOAnchorPosY(y, _animationDuration).SetEase(Ease.Linear);
+            _buttonList[i].CanvasGroup.DOFade(0, _animationDuration).SetEase(Ease.InQuint).OnComplete(() => _buttonList[capturedIndex].gameObject.SetActive(false));
         }
 
         // Bla bla

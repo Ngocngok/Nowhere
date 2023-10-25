@@ -718,14 +718,14 @@ PlayerSettings:
   webGLDebugSymbols: 0
   webGLEmscriptenArgs: 
   webGLModulesDirectory: 
-  webGLTemplate: APPLICATION:Default
+  webGLTemplate: APPLICATION:Minimal
   webGLAnalyzeBuildSize: 0
   webGLUseEmbeddedResources: 0
-  webGLCompressionFormat: 1
+  webGLCompressionFormat: 2
   webGLWasmArithmeticExceptions: 0
   webGLLinkerTarget: 1
   webGLThreadsSupport: 0
-  webGLDecompressionFallback: 0
+  webGLDecompressionFallback: 1
   webGLInitialMemorySize: 32
   webGLMaximumMemorySize: 2048
   webGLMemoryGrowthMode: 2
@@ -746,7 +746,7 @@ PlayerSettings:
     QNX: EPO_DOTWEEN;EPO_DOTWEEN;EPO_DOTWEEN
     Stadia: EPO_DOTWEEN;EPO_DOTWEEN;EPO_DOTWEEN
     Standalone: EPO_DOTWEEN;ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;MOREMOUNTAINS_NICEVIBRATIONS_INSTALLED
-    WebGL: EPO_DOTWEEN;EPO_DOTWEEN;EPO_DOTWEEN
+    WebGL: EPO_DOTWEEN;EPO_DOTWEEN;EPO_DOTWEEN;MOREMOUNTAINS_NICEVIBRATIONS_INSTALLED;ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1
     Windows Store Apps: EPO_DOTWEEN;EPO_DOTWEEN;EPO_DOTWEEN
     XboxOne: EPO_DOTWEEN;EPO_DOTWEEN;EPO_DOTWEEN
     iPhone: EPO_DOTWEEN;EPO_DOTWEEN;EPO_DOTWEEN

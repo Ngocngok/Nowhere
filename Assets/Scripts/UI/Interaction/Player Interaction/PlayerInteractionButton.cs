@@ -46,12 +46,13 @@ public class PlayerInteractionButton : MonoBehaviour
             _interactionPopup = interactionPopup;
             _interactable = interactable;
             _interacter = interacter;
+        
+            if (TryGetComponent(out OneClickButtonBehavior buttonBehavior))
+            {
+                _activeButton.onClick.AddListener(() => buttonBehavior.OnClick(_interactionPopup, _interactable, _interacter));
+            }
         }
 
-        if (TryGetComponent(out PickupButtonBehavior buttonBehavior))
-        {
-            _activeButton.onClick.AddListener(() => buttonBehavior.OnClick(_interactionPopup, _interactable, _interacter));
-        }
     }
 
     public void SetLogicallyInteractable(bool isInteractable)

@@ -30,7 +30,6 @@ public class Highlighter : MonoBehaviour
 
     public void StartHighlight()
     {
-        Debug.Log("a");
         _outlinable.enabled = true;
         _outlinable.OutlineParameters.DilateShift = 0;
         _dialateTween = _outlinable.OutlineParameters.DODilateShift(1, _interval)
@@ -39,7 +38,6 @@ public class Highlighter : MonoBehaviour
 
     public void StopHighlight()
     {
-        Debug.Log("b");
         if (_dialateTween.IsActive())
         {
             _dialateTween.Kill();
