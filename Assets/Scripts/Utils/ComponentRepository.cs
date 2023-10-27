@@ -30,7 +30,6 @@ public class ComponentRepository : MonoBehaviour
         T[] component = GetComponentsInChildren<T>();
         if (component.Length > 0)
         {
-            //cachedComponents.Add(component);
             return component;
         }
 

@@ -16,7 +16,7 @@ TagManager:
   - Ground
   - Decoration
   - Obstacle
-  - 
+  - CustomInputEventReceiver
   - 
   - 
   - 

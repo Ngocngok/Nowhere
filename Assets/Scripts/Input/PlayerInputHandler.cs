@@ -1,3 +1,4 @@
+using Nowhere.Utility;
 using Sirenix.Utilities;
 using System;
 using System.Collections;
@@ -5,14 +6,15 @@ using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static Nowhere.Utility.QuickSelect2;
 
 public class PlayerInputHandler : Singleton<PlayerInputHandler>
 {
+    [SerializeField] private LayerMask targetLayer;
 
     private readonly RaycastHit[] _hits = new RaycastHit[10];
     private Camera _mainCamera;
-    private LayerMask _targetLayer;
-    
+    private RayCastHitRefComparer _rayCastHitRefComparer;
 
 
     private readonly Subject<Vector3> _groundHitAsObservable = new();
@@ -21,7 +23,6 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
     private void Awake()
     {
         _mainCamera = Camera.main;
-        _targetLayer = LayerMask.GetMask("Ground");
     }
 
     // Update is called once per frame
@@ -34,18 +35,23 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
                 return;
             }
 
-            int hits = Physics.RaycastNonAlloc(_mainCamera.ScreenPointToRay(Input.mousePosition), _hits, 100, _targetLayer);
+            int hits = Physics.RaycastNonAlloc(_mainCamera.ScreenPointToRay(Input.mousePosition), _hits, 100, targetLayer);
 
             if (hits > 0)
             {
+                //
+                RaycastHit firstHit = SmallestKRefCompare(_hits, hits, 0, _rayCastHitRefComparer);
+
                 //proceed target hit
 
-                for (int i = 0; i < hits; i++)
+                if(firstHit.collider.TryGetComponent(out IPointerClickHandler pointerClickHandler))
                 {
-
+                    pointerClickHandler.OnPointerClick(new PointerEventData(EventSystem.current));
                 }
-
-                _groundHitAsObservable.OnNext(_hits[0].point);
+                else
+                {
+                    _groundHitAsObservable.OnNext(_hits[0].point);
+                }
             }
         }
     }
@@ -53,6 +59,14 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
     public void RegisterGroundHitAsObservable(Action<Vector3> handler)
     {
         GroundHitAsObservable.Subscribe(handler);
+    }
+
+    private struct RayCastHitRefComparer : IRefComparer<RaycastHit>
+    {
+        public int Compare(ref RaycastHit x, ref RaycastHit y)
+        {
+            return (int)(x.distance * 10 - y.distance * 10);
+        }
     }
 
 }
