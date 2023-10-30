@@ -6222,11 +6222,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6361806967754866759, guid: 5619aac19bbf4c34c89eb95bc44c3ab5, type: 3}
       propertyPath: outlineTargets.Array.data[0].IsVisible
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6361806967754866759, guid: 5619aac19bbf4c34c89eb95bc44c3ab5, type: 3}
       propertyPath: outlineTargets.Array.data[1].IsVisible
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7707533814431870620, guid: 5619aac19bbf4c34c89eb95bc44c3ab5, type: 3}
       propertyPath: m_LocalPosition.x
