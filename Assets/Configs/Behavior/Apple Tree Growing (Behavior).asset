@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e92356d8ebe9d64491c875e8a9b85c0, type: 3}
+  m_Name: Apple Tree Growing (Behavior)
+  m_EditorClassIdentifier: 
+  scales:
+  - 0.3
+  - 0.6
+  - 0.9
+  - 1
+  treeGrowingStateModels:
+  - {fileID: 3169821787688931783, guid: 8325f235b9fc5ed4a8bdc554e01adafa, type: 3}
+  - {fileID: 3169821787688931783, guid: 13332cff870fe9c40890a2f9a87ae6b5, type: 3}
+  - {fileID: 3169821787688931783, guid: 13332cff870fe9c40890a2f9a87ae6b5, type: 3}
+  - {fileID: 3169821787688931783, guid: 232de10ec698dda418f67c0b5de254d5, type: 3}

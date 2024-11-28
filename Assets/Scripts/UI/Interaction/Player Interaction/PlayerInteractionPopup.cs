@@ -1,7 +1,7 @@
 using Nowhere.Interaction;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
-using UniRx;
+using R3;
 using UnityEngine;
 
 public class PlayerInteractionPopup : MonoBehaviour
@@ -19,7 +19,7 @@ public class PlayerInteractionPopup : MonoBehaviour
 
     private void Awake()
     {
-        _componentRepository= GetComponentInParent<ComponentRepository>();
+        _componentRepository = GetComponentInParent<ComponentRepository>();
         _characterDetection = _componentRepository.GetCachedComponent<CharacterDetection>();
         _playerInteractionHandler = _componentRepository.GetCachedComponent<IPlayerInteractionHandler>();
     }

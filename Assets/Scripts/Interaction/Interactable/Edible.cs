@@ -23,18 +23,18 @@ public class Edible : MonoBehaviour, IInteractable
         _componentRepository = GetComponentInParent<ComponentRepository>();
         _entity = _componentRepository.GetComponent<Entity>();
     }
-    public bool IsCompatibleWithInteracter(IInteracter interacter)
+    public bool IsCompatibleWithInteractor(IInteractor interacter)
     {
         return interacter is Eater;
     }
 
-    public bool IsInteractable(IInteracter interacter)
+    public bool IsInteractable(IInteractor interacter)
     {
         Eater eater = interacter as Eater;
         return eater.CanEat;
     }
 
-    public void OnInteract(IInteracter interacter, Action onInteractionStart, Action onInteractionDone)
+    public void OnInteract(IInteractor interacter, Action onInteractionStart, Action onInteractionDone)
     {
         onInteractionStart?.Invoke();
         Eater eater = interacter as Eater;

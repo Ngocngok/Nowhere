@@ -12,7 +12,7 @@ public class PlayerInteractionButton : MonoBehaviour
 
     private PlayerInteractionPopup _interactionPopup;
     private IInteractable _interactable;
-    private IInteracter _interacter;
+    private IInteractor _interacter;
 
     private bool _isSetup;
 
@@ -37,7 +37,7 @@ public class PlayerInteractionButton : MonoBehaviour
         }
     }
 
-    public void Setup(PlayerInteractionPopup interactionPopup, IInteractable interactable, IInteracter interacter)
+    public void Setup(PlayerInteractionPopup interactionPopup, IInteractable interactable, IInteractor interacter)
     {
         if (!_isSetup)
         {

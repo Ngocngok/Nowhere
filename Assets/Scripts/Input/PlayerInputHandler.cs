@@ -1,9 +1,9 @@
 using Nowhere.Utility;
+using R3;
 using Sirenix.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using static Nowhere.Utility.QuickSelect2;
@@ -18,7 +18,7 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
 
 
     private readonly Subject<Vector3> _groundHitAsObservable = new();
-    public IObservable<Vector3> GroundHitAsObservable => _groundHitAsObservable;
+    public Observable<Vector3> GroundHitAsObservable => _groundHitAsObservable;
 
     private void Awake()
     {

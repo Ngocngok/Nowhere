@@ -15,4 +15,4 @@ MonoBehaviour:
   id:
     m_GuidLow: 0
     m_GuidHigh: 0
-  entityPrefab: {fileID: 0}
+  entityPrefab: {fileID: 3285252303861374385, guid: 5619aac19bbf4c34c89eb95bc44c3ab5, type: 3}

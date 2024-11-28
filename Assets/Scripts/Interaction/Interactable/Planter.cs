@@ -28,9 +28,9 @@ public class Planter : MonoBehaviour, IInteractable
         _entity = _componentRepository.GetComponent<Entity>();
     }
 
-    public bool IsCompatibleWithInteracter(IInteracter interacter)
+    public bool IsCompatibleWithInteractor(IInteractor interactor)
     {
-        if(interacter is not Grower grower)
+        if(interactor is not Grower grower)
         {
             return false;
         }
@@ -38,14 +38,14 @@ public class Planter : MonoBehaviour, IInteractable
         return grower.CanGrow();
     }
 
-    public bool IsInteractable(IInteracter interacter)
+    public bool IsInteractable(IInteractor interactor)
     {
         if(_plantGrowing != null)
         {
             return false;
         }
 
-        if (interacter is not Grower grower)
+        if (interactor is not Grower grower)
         {
             return false;
         }
@@ -55,7 +55,7 @@ public class Planter : MonoBehaviour, IInteractable
 
     private Action _onInteractionDone;
 
-    public void OnInteract(IInteracter interacter, Action onInteractionStart, Action onInteractionDone)
+    public void OnInteract(IInteractor interacter, Action onInteractionStart, Action onInteractionDone)
     {
         onInteractionStart?.Invoke();
         Grower grower = interacter as Grower;
@@ -74,4 +74,6 @@ public class Planter : MonoBehaviour, IInteractable
         _plantGrowing = Instantiate(plant, seedPosition);
         _onInteractionDone?.Invoke();
     }
+
+
 }

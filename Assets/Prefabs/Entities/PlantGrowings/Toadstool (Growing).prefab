@@ -138,6 +138,10 @@ PrefabInstance:
       propertyPath: growTime.Array.data[3]
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 8451686041099596993, guid: 0210fb57b3dfd264884a10481a805e63, type: 3}
+      propertyPath: plantGrowingBehaviorConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f39c798ae46c654fb05f4187aa4ede6, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

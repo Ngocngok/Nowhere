@@ -2,7 +2,7 @@ using Nowhere.Interaction;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UniRx;
+using R3;
 
 public class PlayerInteractionOnEnterHandler : MonoBehaviour, IPlayerInteractionHandler
 {
@@ -29,16 +29,16 @@ public class PlayerInteractionOnEnterHandler : MonoBehaviour, IPlayerInteraction
             return;
         }
 
-        IInteracter[] interacters = character.GetComponent<ComponentRepository>().GetCachedComponents<IInteracter>();
+        IInteractor[] interacters = character.GetComponent<ComponentRepository>().GetCachedComponents<IInteractor>();
 
         foreach (KeyValuePair<IInteractable, PlayerInteractionButton> interactionButton in _playerInteractionPopup.InteractionButtonDictionary)
         {
             bool foundCompatibleInteracter = false;
             IInteractable interactable = interactionButton.Key;
 
-            foreach (IInteracter interacter in interacters)
+            foreach (IInteractor interacter in interacters)
             {
-                if (interactionButton.Key.IsCompatibleWithInteracter(interacter))
+                if (interactionButton.Key.IsCompatibleWithInteractor(interacter))
                 {
                     interactionButton.Value.Setup(_playerInteractionPopup, interactable, interacter);
                     interactionButton.Value.Init(true, interactable.IsInteractable(interacter));

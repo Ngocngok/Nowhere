@@ -2,15 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UniRx;
-using UniRx.Triggers;
+using R3;
+using R3.Triggers;
 
 namespace Nowhere.Interaction
 {
     public class CharacterDetection : MonoBehaviour
     {
-        public IObservable<CharacterBehavior> OnCharacterEnterObservable => _onCharacterEnterObservable;
-        public IObservable<CharacterBehavior> OnCharacterExitObservable => _onCharacterExitObservable;
+        public Observable<CharacterBehavior> OnCharacterEnterObservable => _onCharacterEnterObservable;
+        public Observable<CharacterBehavior> OnCharacterExitObservable => _onCharacterExitObservable;
 
         private readonly Subject<CharacterBehavior> _onCharacterEnterObservable = new();
         private readonly Subject<CharacterBehavior> _onCharacterExitObservable = new();
@@ -22,7 +22,7 @@ namespace Nowhere.Interaction
             // Check cache
             if (_cachedCharacterColliders.TryGetValue(other, out ColliderAssociatedInformation information))
             {
-                information.OnCharacterDisabledSubscription.Disposable = information.CharacterBehavior.OnDisableAsObservable().FirstOrDefault().Subscribe(_ =>
+                information.OnCharacterDisabledSubscription.Disposable = information.CharacterBehavior.OnDisableAsObservable().Take(1).Subscribe(_ =>
                 {
                     _onCharacterExitObservable.OnNext(information.CharacterBehavior);
                 });
@@ -40,7 +40,7 @@ namespace Nowhere.Interaction
 
                 _cachedCharacterColliders.Add(other, newInformation);
 
-                newInformation.OnCharacterDisabledSubscription.Disposable = characterBehavior.OnDisableAsObservable().FirstOrDefault().Subscribe(_ =>
+                newInformation.OnCharacterDisabledSubscription.Disposable = characterBehavior.OnDisableAsObservable().Take(1).Subscribe(_ =>
                 {
                     _onCharacterExitObservable.OnNext(characterBehavior);
                 });

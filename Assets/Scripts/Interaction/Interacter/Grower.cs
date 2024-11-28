@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Grower : MonoBehaviour, IInteracter
+public class Grower : MonoBehaviour, IInteractor
 {
     private PlantGrowing _plantHolding;
 

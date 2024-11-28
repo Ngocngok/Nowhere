@@ -11,31 +11,43 @@ public class PlantGrowing : MonoBehaviour
     [SerializeField] private EntityConfig entityConfig;
     public EntityConfig EntityConfig => entityConfig;
 
+    [SerializeField] private PlantGrowingBehaviorConfig plantGrowingBehaviorConfig;
 
 
-    [SerializeField] private float[] scale;
-    [SerializeField] private float[] growTime;
     [SerializeField] private Transform visualTransform;
+
+    private int growingState = -1;
+
 
     private void Awake()
     {
-        visualTransform.DOScale(scale[0], .8f).SetEase(Ease.InOutBack).SetDelay(.3f);
+        visualTransform.DOScale(Vector3.zero, .8f).SetEase(Ease.InOutBack).SetDelay(.3f);
         DOVirtual.DelayedCall(2, () => StartGrowing());
     }
 
 
     public void StartGrowing()
     {
-        Sequence growSequence = DOTween.Sequence();
+        NextGrowingState();
+    }
 
-        for (int i = 1; i < growTime.Length; i++)
+    [Button]
+    public void NextGrowingState()
+    {
+        growingState++;
+
+        Sequence changeGrowingStateSequence = DOTween.Sequence();
+
+        changeGrowingStateSequence.Append(visualTransform.DOScale(Vector3.zero, .4f).SetEase(Ease.InOutBack));
+        changeGrowingStateSequence.AppendCallback(() => Destroy(visualTransform.GetChild(0).gameObject));
+        changeGrowingStateSequence.AppendCallback(() => 
         {
-            int n = i;
-            growSequence.Append(DOVirtual.DelayedCall(growTime[n], () =>
-            {
-                visualTransform.DOScale(scale[n], .8f).SetEase(Ease.InOutBack);
-            }));
-        }
+            GameObject treeModelNextState = Instantiate(plantGrowingBehaviorConfig.treeGrowingStateModels[growingState], visualTransform);
+            treeModelNextState.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+        });
+        changeGrowingStateSequence.Append(visualTransform.DOScale(plantGrowingBehaviorConfig.scales[growingState], .8f).SetEase(Ease.InOutBack));
+
+        
     }
 
     public void OnRipe()

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IInteractionButtonBehavior
 {
-    void OnClick(PlayerInteractionPopup interactionPopup, IInteractable interactable, IInteracter interacter);
+    void OnClick(PlayerInteractionPopup interactionPopup, IInteractable interactable, IInteractor interacter);
 }

@@ -5,7 +5,7 @@ using EPOOutline;
 using UnityEditor;
 using DG.Tweening;
 using Nowhere.Item;
-using UniRx;
+using R3;
 using Nowhere.Interaction;
 
 [RequireComponent(typeof(Outlinable))]

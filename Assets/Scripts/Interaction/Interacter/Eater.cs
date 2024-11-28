@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Eater : MonoBehaviour, IInteracter
+public class Eater : MonoBehaviour, IInteractor
 {
     private ComponentRepository _componentRepository;
     public ComponentRepository ComponentRepository => _componentRepository;

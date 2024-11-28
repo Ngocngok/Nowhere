@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Picker : MonoBehaviour, IInteracter
+public class Picker : MonoBehaviour, IInteractor
 {
     private ComponentRepository _componentRepository;
     public ComponentRepository ComponentRepository => _componentRepository;

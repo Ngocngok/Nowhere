@@ -4,8 +4,8 @@ using System;
 public interface IInteractable
 {
     InteractionConfig InteractionConfig { get; }
-    bool IsCompatibleWithInteracter(IInteracter interacter);
-    bool IsInteractable(IInteracter interacter);
-    void OnInteract(IInteracter interacter, Action onInteractionStart, Action onInteractionDone);
+    bool IsCompatibleWithInteractor(IInteractor interacter);
+    bool IsInteractable(IInteractor interacter);
+    void OnInteract(IInteractor interacter, Action onInteractionStart, Action onInteractionDone);
 }
 
