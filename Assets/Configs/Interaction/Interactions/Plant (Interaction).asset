@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Plant (Interaction)
   m_EditorClassIdentifier: 
   id:
-    m_GuidLow: 0
-    m_GuidHigh: 0
+    m_GuidLow: 5252488740182711970
+    m_GuidHigh: 7098618723188953746
   playerInteractionButton: {fileID: 2282863209514995420, guid: cd46e22d3355df34ebe743e696303a23, type: 3}

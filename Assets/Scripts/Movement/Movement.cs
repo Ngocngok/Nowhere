@@ -67,12 +67,13 @@ public class Movement : MonoBehaviour, IMovement
             _agent.acceleration = goStraightAcceleration;
         }
 
+
         _animator.SetFloat(AnimationHash.speedHash, _agent.velocity.magnitude / _agent.speed);
     }
 
     private void MatchMovementAnimationWithTerrain()
     {
-        Ray groundCheckRay = new Ray(transform.position, -transform.up * 5);
+        Ray groundCheckRay = new Ray(transform.position + Vector3.up, -transform.up * 5);
 
         int hits = Physics.RaycastNonAlloc(groundCheckRay, _groundDetectionHits, 5, LayerMask.GetMask("Ground"));
         if(hits > 0)
