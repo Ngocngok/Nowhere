@@ -14,7 +14,7 @@ public class OnlySunPointSkill : MonoBehaviour
     [Button]
     public void CastSkill() 
     {
-        repository.GetCachedComponent<Animator>().SetTrigger("skill_only_sun_point");
+        repository.GetCachedComponent<Animator>().SetTrigger(AnimationController.onlySunPointSkillHash);
 
         onlySunPointTransform.position = target.position;
 

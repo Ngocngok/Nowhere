@@ -1,3 +1,4 @@
+using Animal;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using System.Collections;
@@ -17,7 +18,7 @@ public class PoofSkill : MonoBehaviour
     {
         if(!_camouflageOn)
         {
-            componentRepository.GetCachedComponent<Animator>().SetTrigger("poof_skill");
+            componentRepository.GetCachedComponent<Animator>().SetTrigger(AnimationController.poofSkillHash);
             DOVirtual.DelayedCall(1f, () =>
             {
                 _camouflageOn = !_camouflageOn;

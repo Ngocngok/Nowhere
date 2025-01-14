@@ -13,6 +13,10 @@ public class PolygonBeamStatic : MonoBehaviour
     public GameObject beamStartPrefab; //This is a prefab that is put at the start of the beam.
     public GameObject beamEndPrefab; //Prefab put at end of beam.
 
+        public float scaleModifier = 1;
+
+        public GameObject BeamEnd => beamEnd;
+
     private GameObject beamStart;
     private GameObject beamEnd;
     private GameObject beam;
@@ -47,7 +51,7 @@ public class PolygonBeamStatic : MonoBehaviour
     {
         if (beam) //Updates the beam
         {
-            line.SetPosition(0, transform.position);
+            line.SetPosition(0, transform.position + transform.forward / 2);
 
             Vector3 end;
             RaycastHit hit;
@@ -83,13 +87,21 @@ public class PolygonBeamStatic : MonoBehaviour
                 beamStart = Instantiate(beamStartPrefab);
             if (beamEndPrefab)
                 beamEnd = Instantiate(beamEndPrefab);
-            beam = Instantiate(beamLineRendererPrefab);
+
+                if (beamStart != null)
+                    beamStart.transform.localScale *= scaleModifier;
+
+                if (beamEnd != null)
+                    beamEnd.transform.localScale *= scaleModifier;
+
+                beam = Instantiate(beamLineRendererPrefab);
             beam.transform.position = transform.position;
             beam.transform.parent = transform;
             beam.transform.rotation = transform.rotation;
             line = beam.GetComponent<LineRenderer>();
             line.useWorldSpace = true;
             line.positionCount = 2;
+                line.widthMultiplier = scaleModifier / 8;
         }
         else
             print("Add a hecking prefab with a line renderer to the SciFiBeamStatic script on " + gameObject.name + "! Heck!");

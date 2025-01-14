@@ -26,6 +26,10 @@ namespace Animal
 		private static readonly int spinHash = Animator.StringToHash("Spin");
 		private static readonly int swimHash = Animator.StringToHash("Swim");
 		private static readonly int walkHash = Animator.StringToHash("Walk");
+
+		public static readonly int onlySunPointSkillHash = Animator.StringToHash("skill_only_sun_point");
+		public static readonly int poofSkillHash = Animator.StringToHash("skill_poof");
+		public static readonly int kamehaSkillHash = Animator.StringToHash("skill_kameha");
 		#endregion
 
 
