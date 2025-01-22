@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d772dd77ccc70be4e80449b5e798ebd6, type: 3}
-  m_Name: Dirt Bag
+  m_Name: Car Battery
   m_EditorClassIdentifier: 
   id:
-    m_GuidLow: 4796900141043752754
-    m_GuidHigh: 7057537976531409291
-  entityPrefab: {fileID: 1539819987825860207, guid: fc288fe5473f92d49a13318a5fc06d77, type: 3}
+    m_GuidLow: 5628594280367219777
+    m_GuidHigh: 5868739243860829089
+  entityPrefab: {fileID: 7660823861555094322, guid: a1555c8edf19f9c46aba3e428616d7ca, type: 3}

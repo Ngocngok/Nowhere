@@ -36,7 +36,14 @@ public class PlayerInteractionPopup : MonoBehaviour
 
     private void GenerateButton()
     {
-        foreach (IInteractable interaction in _componentRepository.GetCachedComponents<IInteractable>())
+        IInteractable[] interactables = _componentRepository.GetCachedComponents<IInteractable>();
+
+        if(interactables is not IInteractable[] _)
+        {
+            return;
+        }
+
+        foreach (IInteractable interaction in interactables)
         {
             PlayerInteractionButton button = Instantiate(interaction.InteractionConfig.playerInteractionButton, _playerInteractionButtonLayout.transform, false);
             button.gameObject.SetActive(false);

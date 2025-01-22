@@ -71,6 +71,7 @@ public class PlayerInteractionButtonLayout : MonoBehaviour
             _buttonList[i].RectTransform.DOAnchorPosX(x, _animationDuration).SetEase(Ease.Linear);
             _buttonList[i].RectTransform.DOAnchorPosY(y, _animationDuration).SetEase(Ease.Linear);
 
+            _buttonList[i].SetShowingState(true);
         }
 
         // Bla bla
@@ -83,7 +84,7 @@ public class PlayerInteractionButtonLayout : MonoBehaviour
     private void HideLayoutArc(Action onHideAnimationDone)
     {
         List<PlayerInteractionButton> _buttonList = new();
-        _playerInteractionPopup.InteractionButtonDictionary.Where(button => button.Value.ShouldShow).ForEach(button => _buttonList.Add(button.Value));
+        _playerInteractionPopup.InteractionButtonDictionary.Where(button => button.Value.IsBeingShown).ForEach(button => _buttonList.Add(button.Value));
 
         //float angleOffset = Mathf.PI / 4 - _arcLayoutAngleRadian * (_buttonList.Count - 1) / 2;
 
@@ -96,6 +97,8 @@ public class PlayerInteractionButtonLayout : MonoBehaviour
             _buttonList[i].RectTransform.DOAnchorPosX(x, _animationDuration).SetEase(Ease.Linear);
             _buttonList[i].RectTransform.DOAnchorPosY(y, _animationDuration).SetEase(Ease.Linear);
             _buttonList[i].CanvasGroup.DOFade(0, _animationDuration).SetEase(Ease.InQuint).OnComplete(() => _buttonList[capturedIndex].gameObject.SetActive(false));
+
+            _buttonList[i].SetShowingState(false);
         }
 
         // Bla bla

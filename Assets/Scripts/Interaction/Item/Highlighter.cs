@@ -54,8 +54,8 @@ public class Highlighter : MonoBehaviour
 
     private void OnEnable()
     {
-        _playerDetection.OnCharacterEnterObservable.Subscribe(_ => StartHighlight()).AddTo(_characterDetectionObservable);
-        _playerDetection.OnCharacterExitObservable.Subscribe(_ => StopHighlight()).AddTo(_characterDetectionObservable);
+        //_playerDetection.OnCharacterEnterObservable.Subscribe(_ => StartHighlight()).AddTo(_characterDetectionObservable);
+        //_playerDetection.OnCharacterExitObservable.Subscribe(_ => StopHighlight()).AddTo(_characterDetectionObservable);
     }
 
     private void OnDisable()

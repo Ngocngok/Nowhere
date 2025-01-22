@@ -19,13 +19,11 @@ public class Planter : MonoBehaviour, IInteractable
     [SerializeField] private Transform seedPosition;
 
     private ComponentRepository _componentRepository;
-    private Entity _entity;
     private PlantGrowing _plantGrowing;
 
     private void Awake()
     {
         _componentRepository = GetComponentInParent<ComponentRepository>();
-        _entity = _componentRepository.GetComponent<Entity>();
     }
 
     public bool IsCompatibleWithInteractor(IInteractor interactor)

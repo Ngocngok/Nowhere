@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8169737664475535661}
+  - component: {fileID: 6483832497514079136}
   - component: {fileID: 427511557514716280}
   - component: {fileID: 8031363213937751672}
   m_Layer: 0
@@ -33,6 +34,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2537739953914830447}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6483832497514079136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9125299857270664820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a2f5f124f448f4dbcb07f9eee54033, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &427511557514716280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,6 +317,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 77186422753216997}
     - target: {fileID: 1655078392013925584, guid: dc2248b79d2a1cc45b25b12952d052b1, type: 3}
+      propertyPath: outlineTargets.Array.data[0].IsVisible
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655078392013925584, guid: dc2248b79d2a1cc45b25b12952d052b1, type: 3}
+      propertyPath: outlineTargets.Array.data[1].IsVisible
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655078392013925584, guid: dc2248b79d2a1cc45b25b12952d052b1, type: 3}
       propertyPath: outlineTargets.Array.data[0].CutoutMask
       value: 8
       objectReference: {fileID: 0}
@@ -434,7 +455,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2536076124895325370, guid: 1fe698ef639ba2149a0b734821be6afc, type: 3}
       propertyPath: m_Name
-      value: Banana Variant
+      value: Banana
       objectReference: {fileID: 0}
     - target: {fileID: 6113537238651811455, guid: 1fe698ef639ba2149a0b734821be6afc, type: 3}
       propertyPath: m_LocalPosition.x

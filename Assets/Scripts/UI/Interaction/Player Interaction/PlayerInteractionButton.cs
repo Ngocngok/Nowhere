@@ -17,6 +17,7 @@ public class PlayerInteractionButton : MonoBehaviour
     private bool _isSetup;
 
     public bool ShouldShow { get; private set; } = false;
+    public bool IsBeingShown { get; private set; } = false;
     public CanvasGroup CanvasGroup => _canvasGroup;
     public RectTransform RectTransform => _rectTransform;
 
@@ -49,10 +50,19 @@ public class PlayerInteractionButton : MonoBehaviour
         
             if (TryGetComponent(out OneClickButtonBehavior buttonBehavior))
             {
-                _activeButton.onClick.AddListener(() => buttonBehavior.OnClick(_interactionPopup, _interactable, _interacter));
+                _activeButton.onClick.AddListener(OnClick);
+            
+                void OnClick()
+                {
+                    interactable.OnInteract(interacter, () => interactionPopup.HideAllActiveButton(), null);
+                }
             }
         }
+    }
 
+    public void SetShowingState(bool isShowing)
+    {
+        IsBeingShown = isShowing;
     }
 
     public void SetLogicallyInteractable(bool isInteractable)

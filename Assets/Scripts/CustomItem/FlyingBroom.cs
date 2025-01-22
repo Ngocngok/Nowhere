@@ -16,6 +16,7 @@ public class FlyingBroom : MonoBehaviour
     [SerializeField] private Vector3 rotationSampleScale;
     [SerializeField] private Vector3 rotationSampleOffset;
 
+    [SerializeField] private GameObject flyingBroomFX;
 
     [SerializeField] private float positionSampleRate;
 
@@ -29,6 +30,18 @@ public class FlyingBroom : MonoBehaviour
         _initialEulerAngle = Vector3.zero;
     }
 
+    public void StartFlying()
+    {
+        enabled = true;
+        flyingBroomFX.SetActive(true);
+    }
+
+    public void StopFlying()
+    {
+        enabled = false;
+        flyingBroomFX.SetActive(false);
+
+    }
 
 
     // Update is called once per frame

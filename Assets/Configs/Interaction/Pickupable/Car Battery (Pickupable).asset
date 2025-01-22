@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d772dd77ccc70be4e80449b5e798ebd6, type: 3}
-  m_Name: Dirt Bag
+  m_Script: {fileID: 11500000, guid: 791d2e94b00d01f429f87a4c54733e9f, type: 3}
+  m_Name: Car Battery (Pickupable)
   m_EditorClassIdentifier: 
-  id:
-    m_GuidLow: 4796900141043752754
-    m_GuidHigh: 7057537976531409291
-  entityPrefab: {fileID: 1539819987825860207, guid: fc288fe5473f92d49a13318a5fc06d77, type: 3}
+  entityVisualPrefab: {fileID: 7057225670450150120, guid: 36fbd8f26eff07140b8cc8952ee6b7bf, type: 3}

@@ -7,6 +7,8 @@ public class CharacterBehavior : MonoBehaviour
 {
     [SerializeField] private EventHandler eventHandler;
 
+    public EventHandler EventHandler => eventHandler;
+
     private void Awake()
     {
 

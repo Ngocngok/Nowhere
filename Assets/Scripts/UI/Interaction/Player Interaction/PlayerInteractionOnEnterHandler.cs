@@ -10,27 +10,47 @@ public class PlayerInteractionOnEnterHandler : MonoBehaviour, IPlayerInteraction
     private ComponentRepository _componentRepository;
     private CharacterDetection _characterDetection;
 
+    private Highlighter _highlighter;
+    private CharacterBehavior _currentCharacterBehavior;
+
     public void Initialize(PlayerInteractionPopup popup)
     {
         _playerInteractionPopup = popup;
         _componentRepository = GetComponentInParent<ComponentRepository>();
         _characterDetection = _componentRepository.GetCachedComponent<CharacterDetection>();
+        _highlighter = _componentRepository.GetCachedComponent<Highlighter>();
 
-
-        _characterDetection.OnCharacterEnterObservable.Subscribe(OnStartInteraction);
-        _characterDetection.OnCharacterExitObservable.Subscribe(OnStopInteraction);
+        _characterDetection.OnCharacterEnterObservable.Subscribe(OnPlayerEnterHandler);
+        _characterDetection.OnCharacterExitObservable.Subscribe(OnPlayerExitHandler);
     }
 
 
-    private void OnStartInteraction(CharacterBehavior character)
+    private void OnPlayerEnterHandler(CharacterBehavior character)
     {
         if (character is not PlayerBehavior)
         {
             return;
         }
 
+        _currentCharacterBehavior = character;
+
+        character.EventHandler.RegisterEvent(PlayerEvent.AfterPlayerInteract, OnAfterPlayerInteractHandler);
+
+        SearchForInteraction(character);
+    }
+
+
+    private void OnAfterPlayerInteractHandler()
+    {
+        SearchForInteraction(_currentCharacterBehavior);
+    }
+
+    private void SearchForInteraction(CharacterBehavior character)
+    {
+
         IInteractor[] interacters = character.GetComponent<ComponentRepository>().GetCachedComponents<IInteractor>();
 
+        bool hasAtLeastOneInteraction = false;
         foreach (KeyValuePair<IInteractable, PlayerInteractionButton> interactionButton in _playerInteractionPopup.InteractionButtonDictionary)
         {
             bool foundCompatibleInteracter = false;
@@ -43,7 +63,7 @@ public class PlayerInteractionOnEnterHandler : MonoBehaviour, IPlayerInteraction
                     interactionButton.Value.Setup(_playerInteractionPopup, interactable, interacter);
                     interactionButton.Value.Init(true, interactable.IsInteractable(interacter));
                     foundCompatibleInteracter = true;
-
+                    hasAtLeastOneInteraction = true;
                     break;
                 }
             }
@@ -54,19 +74,36 @@ public class PlayerInteractionOnEnterHandler : MonoBehaviour, IPlayerInteraction
             }
         }
 
-        _playerInteractionPopup.ShowAllActiveButton();
+        if(hasAtLeastOneInteraction)
+        {
+            _highlighter.StartHighlight();
+            _playerInteractionPopup.ShowAllActiveButton();
+        }
+        else
+        {
+            _highlighter.StopHighlight();
+            _playerInteractionPopup.HideAllActiveButton();
+        }
+
     }
 
-
-
-    private void OnStopInteraction(CharacterBehavior character)
+    private void OnPlayerExitHandler(CharacterBehavior character)
     {
         if (character is not PlayerBehavior)
         {
             return;
         }
-
+        
+        character.EventHandler.UnregisterEvent(PlayerEvent.AfterPlayerInteract, OnAfterPlayerInteractHandler);
         _playerInteractionPopup.HideAllActiveButton();
+        _highlighter.StopHighlight();
     }
 
+    private void OnDisable()
+    {
+        if(_currentCharacterBehavior != null)
+        {
+            _currentCharacterBehavior.EventHandler.UnregisterEvent(PlayerEvent.AfterPlayerInteract, OnAfterPlayerInteractHandler);
+        }
+    }
 }

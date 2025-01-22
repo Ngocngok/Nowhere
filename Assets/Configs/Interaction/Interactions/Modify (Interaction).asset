@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d772dd77ccc70be4e80449b5e798ebd6, type: 3}
-  m_Name: Dirt Bag
+  m_Script: {fileID: 11500000, guid: 9f6b6ea07f9bdd0438035cdde1940279, type: 3}
+  m_Name: Modify (Interaction)
   m_EditorClassIdentifier: 
   id:
-    m_GuidLow: 4796900141043752754
-    m_GuidHigh: 7057537976531409291
-  entityPrefab: {fileID: 1539819987825860207, guid: fc288fe5473f92d49a13318a5fc06d77, type: 3}
+    m_GuidLow: 5722904476466568011
+    m_GuidHigh: 14657416343414519220
+  playerInteractionButton: {fileID: 2282863209514995420, guid: d536e0faea69b3a48b3b4d317b7a636c, type: 3}

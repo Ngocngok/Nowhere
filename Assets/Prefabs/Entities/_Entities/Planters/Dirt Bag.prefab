@@ -40,6 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4361650393070175780}
+  - component: {fileID: 271882663730774428}
   - component: {fileID: 8151274799035444999}
   - component: {fileID: 1013371322497778969}
   m_Layer: 0
@@ -65,6 +66,18 @@ Transform:
   - {fileID: 14163847136143459}
   m_Father: {fileID: 3133570043587072758}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &271882663730774428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6685758004796427430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a2f5f124f448f4dbcb07f9eee54033, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8151274799035444999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,7 +573,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2536076124895325370, guid: 1fe698ef639ba2149a0b734821be6afc, type: 3}
       propertyPath: m_Name
-      value: Dirt Bag Variant
+      value: Dirt Bag
       objectReference: {fileID: 0}
     - target: {fileID: 6113537238651811455, guid: 1fe698ef639ba2149a0b734821be6afc, type: 3}
       propertyPath: m_LocalPosition.x

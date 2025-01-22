@@ -8,14 +8,14 @@ using UnityEngine.AI;
 
 public class Grower : MonoBehaviour, IInteractor
 {
-    private PlantGrowing _plantHolding;
+    private EventHandler _eventHandler;
 
     private ComponentRepository _componentRepository;
     public ComponentRepository ComponentRepository => _componentRepository;
     private void Awake()
     {
         _componentRepository = GetComponentInParent<ComponentRepository>();
-
+        _eventHandler = _componentRepository.GetCachedComponent<EventHandler>();
     }
 
     public bool CanGrow()
@@ -57,6 +57,8 @@ public class Grower : MonoBehaviour, IInteractor
                 onPlantAnimationDone?.Invoke(seedItem.PlantableConfig.plantGrowingPrefab);
                 Destroy(seedItem.gameObject);
             });
+
+            _eventHandler.ExecuteEvent(PlayerEvent.AfterPlayerInteract);
 
         });
     }

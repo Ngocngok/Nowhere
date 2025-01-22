@@ -349,6 +349,11 @@ public class EventHandler : MonoBehaviour
     }
 }
 
+public static class PlayerEvent
+{
+    public static EventType AfterPlayerInteract = new EventType();
+}
+
 public class EventType
 {
 

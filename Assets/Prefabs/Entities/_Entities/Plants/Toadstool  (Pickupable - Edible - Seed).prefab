@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9017289678852931088}
+  - component: {fileID: 5949983401424252082}
   - component: {fileID: 1534408832045877771}
   - component: {fileID: 2114543720393261130}
   - component: {fileID: 4256966747365870728}
@@ -34,6 +35,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5099971400141450666}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5949983401424252082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4941624395324487976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a2f5f124f448f4dbcb07f9eee54033, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1534408832045877771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,7 +184,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2536076124895325370, guid: 1fe698ef639ba2149a0b734821be6afc, type: 3}
       propertyPath: m_Name
-      value: Toadstool Variant
+      value: Toadstool  (Pickupable - Edible - Seed)
       objectReference: {fileID: 0}
     - target: {fileID: 6113537238651811455, guid: 1fe698ef639ba2149a0b734821be6afc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -267,6 +280,14 @@ PrefabInstance:
       propertyPath: outlineTargets.Array.data[1].renderer
       value: 
       objectReference: {fileID: 4141103767113656500}
+    - target: {fileID: 1655078392013925584, guid: dc2248b79d2a1cc45b25b12952d052b1, type: 3}
+      propertyPath: outlineTargets.Array.data[0].IsVisible
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655078392013925584, guid: dc2248b79d2a1cc45b25b12952d052b1, type: 3}
+      propertyPath: outlineTargets.Array.data[1].IsVisible
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1655078392013925584, guid: dc2248b79d2a1cc45b25b12952d052b1, type: 3}
       propertyPath: outlineTargets.Array.data[0].CutoutMask
       value: 8
